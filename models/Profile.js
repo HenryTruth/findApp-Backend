@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const profileSchema = new mongoose.Schema({
     user:{
         type:mongoose.Schema.ObjectId,
-        ref:'User'
+        ref:'user'
     },
     sex:{
         type:String,
@@ -26,7 +26,7 @@ const profileSchema = new mongoose.Schema({
     attributeOne:{
         type:String,
     },
-    atrributeTwo:{
+    attributeTwo:{
         type:String,
     },
     attributeThree:{
@@ -36,6 +36,9 @@ const profileSchema = new mongoose.Schema({
         type:String,
     },
     attributeFive:{
+        type:String,
+    },
+    attributeSix:{
         type:String,
     },
     pictureOne:{
@@ -56,8 +59,6 @@ const profileSchema = new mongoose.Schema({
     pictureSix:{
         type:String
     }
-
-
 })
 
 

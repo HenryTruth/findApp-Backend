@@ -77,16 +77,93 @@ module.exports.signup_post = async (req, res) => {
   
   
   module.exports.profile_post = async (req, res) => {
-    const {name, sex, department, level, description, attributeOne,attributeTwo, attributeThree, attributeFour, attributeFive, attributeSix, attributeSeven} = req.body;
+    const {user, sex, department, level, description, attributeOne,attributeTwo, attributeThree, attributeFour, attributeFive, attributeSix} = req.body;
   
     try {
-        const user = await User.create({ username, email,   password });
-        const token = createToken(user._id);
-        res.status(201).json({ id: user._id, username: user.username, token:token  });
+        const profile = await Profile.create({ user, sex, department, level, description, attributeOne,attributeTwo, attributeThree, attributeFour, attributeFive, attributeSix});
+
+        res.status(201).json({ 
+            user:profile.user, 
+            sex:profile.sex, 
+            department:profile.department, 
+            level:profile.level, 
+            description:profile.description,
+            attributeOne: profile.attributeOne,attributeTwo:profile.attributeTwo, attributeThree:profile.attributeThree, attributeFour:profile.attributeFour, 
+            attributeFive:profile.attributeFive, 
+            attributeSix:profile.attributeSix, 
+        });
       }
     catch(err) {
         //   const errors = handleErrors(err);
         console.log(err)
         res.status(400).json(err);
     }
-  } 
+  }
+
+  module.exports.profile_get = async (req, res) => {
+  
+    try {
+        const profile = await Profile.find().populate("user") 
+
+        res.status(201).json(profile)
+        
+    }
+    catch(err) {
+    //   const errors = handleErrors(err);
+    console.log(err)
+      res.status(400).json(err);
+    }
+   
+  }
+
+
+  module.exports.profile_get_id = async (req, res) => {
+      const id = req.params.id
+  
+    try {
+        const profile = await Profile.findById(id).populate("user") 
+
+        res.status(201).json(profile)
+        
+    }
+    catch(err) {
+    //   const errors = handleErrors(err);
+    console.log(err)
+      res.status(400).json(err);
+    }
+   
+  }
+
+  module.exports.profile_get_id = async (req, res) => {
+    const id = req.params.id
+
+    const {sex, department, level, description, attributeOne,attributeTwo, attributeThree, attributeFour, attributeFive, attributeSix} = req.body;
+
+  try {
+      const profile = await Profile.findByIdAndUpdate(id, {
+        $set: {
+            sex,
+            department,
+            level,
+            description,
+            attributeOne,
+            attributeTwo,
+            attributeThree,
+            attributeFour,
+            attributeFive,
+            attributeSix
+        }
+      },{
+        useFindAndModify:false
+    }).populate("user") 
+
+      res.status(201).json(profile)
+      
+  }
+  catch(err) {
+  //   const errors = handleErrors(err);
+  console.log(err)
+    res.status(400).json(err);
+  }
+ 
+}

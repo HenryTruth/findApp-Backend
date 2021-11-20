@@ -6,6 +6,8 @@ const router = Router();
 router.post('/signup', authController.signup_post);
 router.post('/profile', authController.profile_post);
 router.post('/login', authController.login_post);
-// router.get('/logout', authController.logout_get);
+router.get('/profile', authController.profile_get);
+router.get('/profile/:id', authController.profile_get_id);
+router.put('/profile/:id', authController.profile_get_id);
 
 module.exports = router;
