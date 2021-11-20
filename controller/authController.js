@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Profile = require("../models/Profile")
 const jwt = require('jsonwebtoken');
 
 const handleErrors = (err) => {
@@ -72,4 +73,20 @@ module.exports.signup_post = async (req, res) => {
       const errors = handleErrors(err);
       res.status(400).json({ errors });
     }
-  }  
+  }
+  
+  
+  module.exports.profile_post = async (req, res) => {
+    const {name, sex, department, level, description, attributeOne,attributeTwo, attributeThree, attributeFour, attributeFive, attributeSix, attributeSeven} = req.body;
+  
+    try {
+        const user = await User.create({ username, email,   password });
+        const token = createToken(user._id);
+        res.status(201).json({ id: user._id, username: user.username, token:token  });
+      }
+    catch(err) {
+        //   const errors = handleErrors(err);
+        console.log(err)
+        res.status(400).json(err);
+    }
+  } 

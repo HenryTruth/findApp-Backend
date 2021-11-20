@@ -2,35 +2,66 @@ const mongoose = require('mongoose');
 
 
 const profileSchema = new mongoose.Schema({
-    username:{
+    user:{
+        type:mongoose.Schema.ObjectId,
+        ref:'User'
+    },
+    sex:{
         type:String,
-        
+        enum: ['Male', 'Female'],
+        required:true
+    },
+    department:{
+        type:String,
+        required:true,
+    },
+    level:{
+        type:String,
+        enum:['100l','200l','300l','400l','500l','600l','700l'],
+        required:true
+    },
+    description:{
+        type:String,
+    },
+    attributeOne:{
+        type:String,
+    },
+    atrributeTwo:{
+        type:String,
+    },
+    attributeThree:{
+        type:String,
+    },
+    attributeFour:{
+        type:String,
+    },
+    attributeFive:{
+        type:String,
+    },
+    pictureOne:{
+        type:String,
+    },
+    pictureTwo:{
+        type:String
+    },
+    pictureThree:{
+        type:String
+    },
+    pictureFour:{
+        type:String
+    },
+    pictureFive:{
+        type:String
+    },
+    pictureSix:{
+        type:String
     }
+
+
 })
 
 
-const userSchema = new mongoose.Schema({
-    username:{
-        type:String,
-        required:[true, 'Please enter a username'],
-        unique:true,
-        lowercase:true,
-    },
-    email: {
-        type: String,
-        required: [true, 'Please enter an email'],
-        unique: true,
-        lowercase: true,
-        validate: [isEmail, 'Please enter a valid email']
-    },
-    password: {
-        type: String,
-        required: [true, 'Please enter a password'],
-        minlength: [6, 'Minimum password length is 6 characters'],
-    }
-});
 
+const Profile = mongoose.model('profile', profileSchema);
 
-const User = mongoose.model('user', userSchema);
-
-module.exports = User;
+module.exports = Profile;

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
+
 const userSchema = new mongoose.Schema({
     username:{
         type:String,
@@ -20,6 +21,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter a password'],
         minlength: [6, 'Minimum password length is 6 characters'],
+    },
+    profile:{
+        type:mongoose.Schema.ObjectId,
+        ref:'Profile'
     }
 });
 
