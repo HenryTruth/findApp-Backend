@@ -20,6 +20,10 @@ const profileSchema = new mongoose.Schema({
         enum:['100l','200l','300l','400l','500l','600l','700l'],
         required:true
     },
+    institution:{
+        type:String,
+        required:true
+    },
     description:{
         type:String,
     },

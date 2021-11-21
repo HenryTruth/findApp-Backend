@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
-
+const dotenv = require('dotenv')
+dotenv.config()
 
 const app = express();
 
+app.use(express.json());
 app.use(express.urlencoded({
     extended: true
   }));
@@ -12,7 +14,7 @@ app.use(express.urlencoded({
 
 // middleware
 app.use(express.static('public'));
-app.use(express.json());
+
 
 mongoose.connect('mongodb://localhost:27017/FindApp',{
     useNewUrlParser:true,
@@ -23,17 +25,5 @@ mongoose.connect('mongodb://localhost:27017/FindApp',{
 })
 .catch((err) => console.log(err));
 
-
-
-
-
-// database connection
-
-
-// routes
-// app.get('*', checkUser);
-// app.get('/', (req, res) => res.render('home'));
-// app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
-// app.use(authRoutes);
 
 app.use(authRoutes);
