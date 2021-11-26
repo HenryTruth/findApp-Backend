@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { object } = require('prop-types');
 
 
 const profileSchema = new mongoose.Schema({
@@ -45,23 +46,26 @@ const profileSchema = new mongoose.Schema({
     attributeSix:{
         type:String,
     },
+    profilePic:{
+        type:Object
+    },
     pictureOne:{
-        type:String,
+        type:Object
     },
     pictureTwo:{
-        type:String
+        type:Object
     },
     pictureThree:{
-        type:String
+        type:Object
     },
     pictureFour:{
-        type:String
+        type:Object
     },
     pictureFive:{
-        type:String
+        type:Object
     },
     pictureSix:{
-        type:String
+        type:Object
     }
 })
 
