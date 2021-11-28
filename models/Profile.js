@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { object } = require('prop-types');
 
 
 const profileSchema = new mongoose.Schema({

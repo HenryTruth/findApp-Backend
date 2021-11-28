@@ -1,18 +1,15 @@
 const User = require("../models/User");
 const Profile = require("../models/Profile")
 const jwt = require('jsonwebtoken');
-const cloudinary = require('cloudinary').v2
+const cloudinary = require('../utils/cloudinary')
 const fs = require('fs')
-// const { uploader } = require("../utils/cloudinary");
+const dotenv = require('dotenv');
 
-cloudinary.config({ 
-  cloud_name: "dyojwpsfb", 
-  api_key :'561691254166548', 
-  api_secret : "k9tjvzXstvMkFIuqlJFm4_t_tcA",
-})
+dotenv.config()
+
 
 const handleErrors = (err) => {
-    console.log(err.message, err.code);
+    // console.log(err.message, err.code);
     let errors = { email: '', password: '' };
   
     // incorrect email
@@ -32,28 +29,30 @@ const handleErrors = (err) => {
     }
   
     // validation errors
-    // if (err.message.includes('user validation failed')) {
-    //   // console.log(err);
-    //   Object.values(err.errors).forEach(({ properties }) => {
-    //     // console.log(val);
-    //     // console.log(properties);
-    //     errors[properties.path] = properties.message;
-    //   });
-    // }
+
+    if(err.message){
+      if (err.message.includes('user validation failed')) {
+        // console.log(err);
+        Object.values(err.errors).forEach(({ properties }) => {
+          // console.log(val);
+          // console.log(properties);
+          errors[properties.path] = properties.message;
+        });
+      }
+    }
   
     return errors;
 }
 
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, 'net ninja secret', {
+  return jwt.sign({ id }, process.env.SECRET_KEY, {
     expiresIn: maxAge
   });
 };
 
 
 module.exports.signup_post = async (req, res) => {
-    console.log(req.body)
     const { username, email, password } = req.body;
   
     try {
@@ -100,21 +99,9 @@ module.exports.signup_post = async (req, res) => {
       attributeSix
     } = req.body;
 
-
-    const result = async (file, folder) => {
-      return new Promise(resolve => {
-        cloudinary.uploader.upload(file, function(error, result){
-          resolve({
-            url:result.url,
-            id:result.public_id
-          })
-        });
-      })
-    }
-
   
     try {
-        const uploader = async (path) => await result(path, 'Images')
+        const uploader = async (path) => await cloudinary.uploads(path, 'Images')
         const files = req.files;
         const urls = []
         for (const i in files){
@@ -191,8 +178,7 @@ module.exports.signup_post = async (req, res) => {
       }
     catch(err) {
           const errors = handleErrors(err);
-        console.log(err)
-        res.status(400).json(err);
+        res.status(400).json({errors});
     }
   }
 
@@ -211,8 +197,8 @@ module.exports.signup_post = async (req, res) => {
         
     }
     catch(err) {
-    console.log(err)
-      res.status(400).json(err);
+      const errors = handleErrors(err);
+      res.status(400).json({errors});
     }
    
   }
@@ -223,31 +209,19 @@ module.exports.signup_post = async (req, res) => {
   
     try {
         const profile = await Profile.findById(id).populate("user") 
-
         res.status(201).json(profile)
         
     }
     catch(err) {
-    console.log(err)
-      res.status(400).json(err);
+      const errors = handleErrors(err)
+      res.status(400).json({errors});
     }
    
   }
 
   module.exports.profile_put_id = async (req, res) => {
+    const uploader = async (path) => await cloudinary.uploads(path, 'Images')
 
-    const result = async (file, folder) => {
-      return new Promise(resolve => {
-        cloudinary.uploader.upload(file, function(error, result){
-          resolve({
-            url:result.url,
-            id:result.public_id
-          })
-        });
-      })
-    }
-
-    const uploader = async (path) => await result(path, 'Images')
         const files = req.files;
         const urls = []
         for (const i in files){
@@ -260,7 +234,6 @@ module.exports.signup_post = async (req, res) => {
 
     const id = req.params.id
 
-    
 
     const update = {...req.body, profilePic:{
       avatar:urls[0].url,
@@ -295,14 +268,13 @@ module.exports.signup_post = async (req, res) => {
   try {
       const profile = await Profile.findByIdAndUpdate(id, update, picUpdate, { useFindAndModify: false})
 
-      console.log(profile)
 
       res.status(201).json(profile)
       
   }
   catch(err) {
-  console.log(err)
-    res.status(400).json(err);
+    const errors = handleErrors(err)
+    res.status(400).json({errors});
   }
  
 }

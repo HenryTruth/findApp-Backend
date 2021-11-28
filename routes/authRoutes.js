@@ -1,15 +1,10 @@
 const { Router } = require('express');
-const express = require('express')
 const authController = require('../controller/authController');
-const cloudinary = require('cloudinary').v2
 const uploads = require('../utils/multer')
 const auth = require('../middleware/auth')
+const router = Router();
 
-cloudinary.config({ 
-    cloud_name: "dyojwpsfb", 
-    api_key :'561691254166548', 
-    api_secret : "k9tjvzXstvMkFIuqlJFm4_t_tcA",
-})
+
 
 const cpUpload = uploads.fields([
     {name:'profilePic', maxCount:1},
@@ -21,9 +16,6 @@ const cpUpload = uploads.fields([
     { name: 'pictureSix', maxCount: 1 }
 ])
 
-
-const router = Router();
-// const app = express();
 
 
 router.post('/signup', authController.signup_post);
