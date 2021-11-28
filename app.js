@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const cors = require("cors")
+const path = require("path")
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({
 
 // middleware
 app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, "client")))
 
 
 mongoose.connect('mongodb://localhost:27017/FindApp',{
