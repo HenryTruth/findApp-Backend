@@ -21,14 +21,15 @@ app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, "client")))
 
 
-mongoose.connect('mongodb://localhost:27017/FindApp',{
-    useNewUrlParser:true,
-    useUnifiedTopology:true
-}).then((result) => {
-    console.log('mongoDb connected...')
-    app.listen(port)
-})
-.catch((err) => console.log(err));
+mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true ,useUnifiedTopology: true}
+  )
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
 
 app.use(authRoutes);
+
+app.listen(PORT, console.log(`Server running on  ${PORT}`));
