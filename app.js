@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const cors = require("cors")
 const path = require("path")
+const db = require('./config/keys').mongoURI;
 
 const app = express();
 
@@ -32,4 +33,4 @@ mongoose
 
 app.use(authRoutes);
 
-app.listen(PORT, console.log(`Server running on  ${PORT}`));
+app.listen(port, console.log(`Server running on  ${port}`));
