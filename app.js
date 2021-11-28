@@ -6,6 +6,8 @@ const path = require("path")
 
 const app = express();
 
+const port = process.env.PORT || 3000
+
 app.use(cors());
 
 app.use(express.json());
@@ -24,7 +26,7 @@ mongoose.connect('mongodb://localhost:27017/FindApp',{
     useUnifiedTopology:true
 }).then((result) => {
     console.log('mongoDb connected...')
-    app.listen(3000)
+    app.listen(port)
 })
 .catch((err) => console.log(err));
 
