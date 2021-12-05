@@ -48,24 +48,6 @@ const profileSchema = new mongoose.Schema({
     profilePic:{
         type:Object
     },
-    pictureOne:{
-        type:Object
-    },
-    pictureTwo:{
-        type:Object
-    },
-    pictureThree:{
-        type:Object
-    },
-    pictureFour:{
-        type:Object
-    },
-    pictureFive:{
-        type:Object
-    },
-    pictureSix:{
-        type:Object
-    }
 })
 
 
