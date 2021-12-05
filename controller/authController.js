@@ -103,8 +103,7 @@ module.exports.signup_post = async (req, res) => {
       attributeTwo, 
       attributeThree, 
       attributeFour, 
-      attributeFive, 
-      attributeSix
+      attributeFive
     } = req.body;
 
   
@@ -146,7 +145,6 @@ module.exports.signup_post = async (req, res) => {
           attributeThree,
           attributeFour,
           attributeFive,
-          attributeSix,
           profilePic:result.url,
         });
 
@@ -162,7 +160,6 @@ module.exports.signup_post = async (req, res) => {
           attributeThree:profile.attributeThree, 
           attributeFour:profile.attributeFour, 
           attributeFive:profile.attributeFive, 
-          attributeSix:profile.attributeSix,
           profilePic:profile.profilePic,
       });
       }
