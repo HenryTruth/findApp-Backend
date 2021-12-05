@@ -42,9 +42,6 @@ const profileSchema = new mongoose.Schema({
     attributeFive:{
         type:String,
     },
-    attributeSix:{
-        type:String,
-    },
     profilePic:{
         type:Object
     },
