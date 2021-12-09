@@ -53,7 +53,7 @@ const handleErrors = (err) => {
 const tokenLimit = 7 * 24 * 60 * 60;
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.SECRET_KEY, {
-    expiresIn: maxAge
+    expiresIn: tokenLimit
   });
 };
 
@@ -83,7 +83,7 @@ module.exports.signup_post = async (req, res) => {
       const user = await User.login(email, password);
       const token = createToken(user._id);
       expirationDate = tokenLimit
-      res.status(200).json({ id: user._id, email: user.email, token:token, expirationDate = tokenLimit  });
+      res.status(200).json({ id: user._id, email: user.email, token:token, expirationDate: tokenLimit  });
     } 
     catch (err) {
       const errors = handleErrors(err);
