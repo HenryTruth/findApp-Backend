@@ -104,7 +104,10 @@ module.exports.signup_post = async (req, res) => {
       attributeTwo, 
       attributeThree, 
       attributeFour, 
-      attributeFive
+      attributeFive,
+      attribureSix,
+      attributeSeven,
+      attributeEight,
     } = req.body;
 
   
@@ -146,6 +149,9 @@ module.exports.signup_post = async (req, res) => {
           attributeThree,
           attributeFour,
           attributeFive,
+          attribureSix,
+          attributeSeven,
+          attributeEight,
           profilePic:result.url,
         });
 
@@ -160,7 +166,10 @@ module.exports.signup_post = async (req, res) => {
           attributeTwo:profile.attributeTwo,
           attributeThree:profile.attributeThree, 
           attributeFour:profile.attributeFour, 
-          attributeFive:profile.attributeFive, 
+          attributeFive:profile.attributeFive,
+          attribureSix:profile.attributeSix,
+          attributeSeven:profile.attributeSeven,
+          attributeEight:profile.atrributeEight,
           profilePic:profile.profilePic,
       });
       }
@@ -188,8 +197,8 @@ module.exports.signup_post = async (req, res) => {
         
     }
     catch(err) {
-      const errors = handleErrors(err);
-      res.status(400).json({errors});
+      // const errors = handleErrors(err);
+      res.status(400).json(err);
     }
    
   }

@@ -42,9 +42,21 @@ const profileSchema = new mongoose.Schema({
     attributeFive:{
         type:String,
     },
+    attributeSix:{
+        type:String,
+    },
+    attributeSeven:{
+        type:String
+    },
+    attributeEight:{
+        type:String
+    },
     profilePic:{
         type:Object
     },
+    availability:{
+        type:Boolean
+    }
 })
 
 
