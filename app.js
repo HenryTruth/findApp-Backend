@@ -24,7 +24,8 @@ app.use(express.static(path.join(__dirname, "client")))
 // 'mongodb://localhost:27017/FindApp'
 mongoose
   .connect(
-    'mongodb://localhost:27017/FindApp',
+    db,
+    // 'mongodb://localhost:27017/FindApp',
     { useNewUrlParser: true ,useUnifiedTopology: true}
   )
   .then(() => console.log('MongoDB Connected'))
