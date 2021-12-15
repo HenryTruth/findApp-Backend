@@ -114,6 +114,7 @@ module.exports.signup_post = async (req, res) => {
     try {
 
       if(req.file){
+        console.log(req.body)
 
         let uploadFromBuffer = (req) => {
           return new Promise((resolve, reject) => {
