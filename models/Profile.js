@@ -6,6 +6,10 @@ const profileSchema = new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'user'
     },
+    username:{
+        type:String,
+        required:true
+    },
     sex:{
         type:String,
         enum: ['Male', 'Female'],
@@ -17,7 +21,6 @@ const profileSchema = new mongoose.Schema({
     },
     level:{
         type:String,
-        enum:['100l','200l','300l','400l','500l','600l','700l'],
         required:true
     },
     institution:{
