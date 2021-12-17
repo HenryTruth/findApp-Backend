@@ -63,6 +63,8 @@ const profileSchema = new mongoose.Schema({
     
 },{timestamps: true })
 
+profileSchema.index({sex: 'text', department: 'text', level:'text', institution:'text'});
+
 
 
 const Profile = mongoose.model('profile', profileSchema);

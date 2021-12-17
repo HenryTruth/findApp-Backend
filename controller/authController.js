@@ -183,17 +183,29 @@ module.exports.signup_post = async (req, res) => {
   }
 
   module.exports.profile_get = async (req, res) => {
-    const { department, level, sex } = req.query
+    const { page = 1, limit = 10, query } = req.query
   
     try {
         const profile = await Profile.find({
+          // department:department,
+          // level:level,
+          // institution:institution
           // $or:[
           //       {sex:{$regex:sex, $options:'i'}},
-          //       {department:{$regex:department, $options:'i'}}, {level:{$regex:level, $options:'i'}}
-          //     ]
-        })
+          //       // {department:{$regex:department, $options:'i'}}, 
+          //       // {level:{$regex:level, $options:'i'}}, {institution:{$regex:institution, $options:'i'}}
+          //     ],
 
-        res.status(201).json(profile)
+            $text:
+              {
+                $search: query,
+              }
+          
+        }).sort({'createdAt': 'desc'})
+        .limit( limit * 1 )
+        .skip((page - 1) * limit);
+
+        res.status(201).json({total:profile.length, profile:profile})
         
     }
     catch(err) {
