@@ -56,7 +56,8 @@ const profileSchema = new mongoose.Schema({
     },
     availability:{
         type:Boolean
-    }
+    },
+    timestamps: true
 })
 
 
