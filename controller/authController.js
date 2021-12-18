@@ -157,24 +157,9 @@ module.exports.signup_post = async (req, res) => {
           profilePic:result.url,
         });
 
-      res.status(201).json({ 
-          user:profile.user,
-          username:profile.username,
-          sex:profile.sex, 
-          department:profile.department, 
-          level:profile.level,
-          institution:profile.institution,
-          description:profile.description,
-          attributeOne: profile.attributeOne,
-          attributeTwo:profile.attributeTwo,
-          attributeThree:profile.attributeThree, 
-          attributeFour:profile.attributeFour, 
-          attributeFive:profile.attributeFive,
-          attribureSix:profile.attributeSix,
-          attributeSeven:profile.attributeSeven,
-          attributeEight:profile.atrributeEight,
-          profilePic:profile.profilePic,
-      });
+      res.status(201).json(
+      profile
+      );
       }
 
       }
