@@ -94,7 +94,8 @@ module.exports.signup_post = async (req, res) => {
   
   module.exports.profile_post = async (req, res) => {
     const {
-      user, 
+      user,
+      username,
       sex, 
       department, 
       level,
@@ -139,6 +140,7 @@ module.exports.signup_post = async (req, res) => {
 
         const profile = await Profile.create({ 
           user,
+          username,
           sex,
           department,
           level,
@@ -156,7 +158,8 @@ module.exports.signup_post = async (req, res) => {
         });
 
       res.status(201).json({ 
-          user:profile.user, 
+          user:profile.user,
+          username:profile.username,
           sex:profile.sex, 
           department:profile.department, 
           level:profile.level,
