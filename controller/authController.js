@@ -202,10 +202,12 @@ module.exports.signup_post = async (req, res) => {
               }
           
         }).sort({'createdAt': 'desc'})
+        .populate("user") 
         .limit( limit * 1 )
         .skip((page - 1) * limit);
+        
 
-        res.status(201).json({total:profile.length, profile:profile})
+        res.status(201).json({page:profile.length / limit, total:profile.length, profile:profile})
         
     }
     catch(err) {
@@ -232,10 +234,6 @@ module.exports.signup_post = async (req, res) => {
   }
 
   module.exports.profile_put_id = async (req, res) => {
-
-    
-    
-
 
   try {
     if(req.file){

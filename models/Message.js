@@ -1,18 +1,28 @@
 const mongoose = require('mongoose')
 
 const messageSchema = new mongoose.Schema({
-    senderId:{
-        type:mongoose.Schema.ObjectId,
-        ref:'user'
-    },
-    receiverId:{
-        type:mongoose.Schema.ObjectId,
-        ref:'User'
-    },
     message:{
+        type:String,
+    },
+    createdAt:{
+        type:Date,
+    },
+    user:{
+        userId:{
+            type:mongoose.Schema.ObjectId,
+            ref:'user'
+        }
+    },
+    image:{
         type:String
     },
-    isRead:{
+    sent:{
+        type:Boolean
+    },
+    received:{
+        type:Boolean
+    },
+    pending:{
         type:Boolean
     }
 })
